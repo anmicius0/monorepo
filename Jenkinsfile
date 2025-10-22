@@ -22,17 +22,6 @@ pipeline {
                         [scanPattern: '**/Podfile.lock'],
                         [scanPattern: '**/*.js']
                     ],
-                    reachability: [
-                        failOnError: false,
-                        java: [options: [], properties: [], tool: ''],
-                        javaAnalysis: [
-                            algorithm: 'RTA_PLUS',
-                            enable: false,
-                            entrypointStrategy: 'ACCESSIBLE_CONCRETE',
-                            force: false
-                        ],
-                        jsAnalysis: [enable: false, force: false, sourceFiles: []]
-                    ],
                     unstableBuildOnScanningWarnings: false
                 )
             }
