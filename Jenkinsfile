@@ -24,14 +24,14 @@ pipeline {
                     ],
                     reachability: [
                         failOnError: false,
-                        java: [options: [:], properties: [:], tool: ''],
+                        java: [options: [], properties: [], tool: ''],
                         javaAnalysis: [
                             algorithm: 'RTA_PLUS',
                             enable: false,
                             entrypointStrategy: 'ACCESSIBLE_CONCRETE',
                             force: false
                         ],
-                        jsAnalysis: [enable: false, force: false, sourceFiles: [[pattern: '']]]
+                        jsAnalysis: [enable: false, force: false, sourceFiles: []]
                     ],
                     unstableBuildOnScanningWarnings: false
                 )
