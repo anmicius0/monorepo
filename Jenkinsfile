@@ -14,17 +14,17 @@ pipeline {
                     iqStage: 'develop',
                     jobCredentialsId: '',
                     iqScanPatterns: [
-                        [scanPattern: '**/*.tar.gz'], // targz (default)
-                        [scanPattern: '**/*.zip'],    // zip (default)
-                        [scanPattern: '**/*.jar'],    // Java (default)
-                        [scanPattern: '**/*.ear'],    // Java (default)
-                        [scanPattern: '**/*.war'],    // Java (default)
-                        [scanPattern: '**/Podfile.lock'], // iOS
-                        [scanPattern: '**/*.js']      // JavaScript
+                        [scanPattern: '**/*.tar.gz'],
+                        [scanPattern: '**/*.zip'],
+                        [scanPattern: '**/*.jar'],
+                        [scanPattern: '**/*.ear'],
+                        [scanPattern: '**/*.war'],
+                        [scanPattern: '**/Podfile.lock'],
+                        [scanPattern: '**/*.js']
                     ],
                     reachability: [
                         failOnError: false,
-                        java: [options: [], properties: [], tool: ''],
+                        java: [options: [:], properties: [:], tool: ''],
                         javaAnalysis: [
                             algorithm: 'RTA_PLUS',
                             enable: false,
