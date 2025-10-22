@@ -22,7 +22,7 @@ pipeline {
                         [scanPattern: '**/Podfile.lock'],
                         [scanPattern: '**/*.js'],
                         [scanPattern: '**/pom.xml'],
-                        [scanPattern: '**/package.json']
+                        [scanPattern: '**/package-lock.json']
                     ],
                     unstableBuildOnScanningWarnings: false
                 )
