@@ -20,7 +20,9 @@ pipeline {
                         [scanPattern: '**/*.ear'],
                         [scanPattern: '**/*.war'],
                         [scanPattern: '**/Podfile.lock'],
-                        [scanPattern: '**/*.js']
+                        [scanPattern: '**/*.js'],
+                        [scanPattern: '**/pom.xml'],
+                        [scanPattern: '**/package.json']
                     ],
                     unstableBuildOnScanningWarnings: false
                 )

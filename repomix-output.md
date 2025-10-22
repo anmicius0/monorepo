@@ -47,6 +47,7 @@ src/
       com/
         example/
           AppTest.java
+.gitignore
 Jenkinsfile
 package.json
 pom.xml
@@ -91,31 +92,90 @@ public class AppTest {
 }
 ```
 
-## File: Jenkinsfile
+## File: .gitignore
 ```
-pipeline {
-    agent any
-    stages {
-        stage('Checkout') { steps { checkout scm } }  // required so IQ can read files
-        stage('Policy Evaluation') {
-            steps {
-                nexusPolicyEvaluation(
-          iqApplication: 'your-app-id',
-          iqInstanceId: 'default-iqserver',
-          iqStage: 'develop',
-          iqScanPatterns: [
-            [scanPattern: '**/*.jar'], [scanPattern: '**/*.war'],
-            [scanPattern: '**/*.ear'], [scanPattern: '**/*.zip'],
-            [scanPattern: '**/*.tar.gz'],
-            [scanPattern: '**/Podfile.lock'],
-            [scanPattern: '**/*.js'],
-            [scanPattern: '!**/.git/**']
-          ]
-        )
-            }
-        }
-    }
-}
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# IntelliJ
+.idea
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+nb-configuration.xml
+
+# Visual Studio Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
 ```
 
 ## File: package.json
@@ -248,4 +308,38 @@ pipeline {
     </pluginManagement>
   </build>
 </project>
+```
+
+## File: Jenkinsfile
+```
+pipeline {
+    agent any
+    stages {
+        stage('Nexus Policy Evaluation') {
+            steps {
+                nexusPolicyEvaluation(
+                    advancedProperties: '',
+                    enableDebugLogging: false,
+                    failBuildOnNetworkError: false,
+                    failBuildOnScanningErrors: false,
+                    iqApplication: selectedApplication('monorepo'),
+                    iqInstanceId: 'default-iqserver',
+                    iqOrganization: '74d58a9a10e24d62a13e51532a3216cb',
+                    iqStage: 'develop',
+                    jobCredentialsId: '',
+                    iqScanPatterns: [
+                        [scanPattern: '**/*.tar.gz'],
+                        [scanPattern: '**/*.zip'],
+                        [scanPattern: '**/*.jar'],
+                        [scanPattern: '**/*.ear'],
+                        [scanPattern: '**/*.war'],
+                        [scanPattern: '**/Podfile.lock'],
+                        [scanPattern: '**/*.js']
+                    ],
+                    unstableBuildOnScanningWarnings: false
+                )
+            }
+        }
+    }
+}
 ```
